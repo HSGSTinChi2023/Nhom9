@@ -125,8 +125,6 @@ function verdict(w) {
 function simulate() {
     let nw = cal(head,di[head]);
 
-
-
     if(nw == -1) {
         verdict(0);
         clearInterval(myGame);
