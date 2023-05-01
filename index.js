@@ -1,6 +1,6 @@
 var grid = document.querySelectorAll(".grid-item");
 
-let num = [],di = [],node = [],cnt = [],n = 12;
+let num = [],di = [],node = [],cnt = [],n = 40;
 let dx = [0,-1,0,1];
 let dy = [-1,0,1,0];
 
@@ -11,7 +11,7 @@ function rand(min, max) {
 }
 let head = rand(0,n*n - 1),tail = head;
 
-for(let i = 0;i < 144;i++) {
+for(let i = 0;i < n*n;i++) {
     num.push(-1);
     di.push(-1);
     cnt.push(0);
@@ -42,7 +42,7 @@ function init() {
     grid.forEach(div => {
         div.style.backgroundColor = "white";
     })
-    for(let i = 0;i < 144;i++) {
+    for(let i = 0;i < n*n;i++) {
         num[i] = -1;
         di[i] = -1;
     }
@@ -75,24 +75,25 @@ function update_score() {
 
 document.addEventListener('keydown', (event) => {
     var code = event.code;
+    let w = -1;
 
     if(code == "ArrowLeft") {
-        if(di[head] != 2) {
-            di[head] = 0;
-        }
+        w = 0;
     } else if(code == "ArrowUp") {
-        if(di[head] != 3) {
-            di[head] = 1;
-        }
+        w = 1;
     } else if(code == "ArrowRight") {
-        if(di[head] != 0) {
-            di[head] = 2;
-        }
+        w = 2;
     } else {
-        if(di[head] != 1) {
-            di[head] = 3;
-        }
+        w = 3;
     }
+
+    let nw = cal(head,w);
+
+    if(node.length >= 2 && nw == node[node.length - 2]) {
+        return 0;
+    }
+
+    di[head] = w;
 }, false);
 
 let myGame;
